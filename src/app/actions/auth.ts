@@ -6,9 +6,9 @@ import {
   createSession,
   createUser,
   deleteSession,
-} from '@/app/lib/auth'
-import { getUserByEmail } from '@/app/lib/dal'
-import { mockDelay } from '@/app/lib/utils'
+} from '../../../lib/auth'
+import { getUserByEmail } from '../../../lib/dal'
+import { mockDelay } from '../../../lib/utils'
 import { redirect } from 'next/navigation'
 
 // Define Zod schema for signin validation
