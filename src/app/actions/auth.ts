@@ -56,7 +56,7 @@ export const signIn = async (formData: FormData): Promise<ActionResponse> => {
       }
     }
 
-    const user = await getUserByEmail()
+    const user = await getUserByEmail(data.email)
 
     if (!user) {
       return {

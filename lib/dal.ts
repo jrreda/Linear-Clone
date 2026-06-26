@@ -4,9 +4,11 @@ import { eq } from 'drizzle-orm'
 import { cache } from 'react'
 import { issues, users } from '../db/schema'
 import { mockDelay } from './utils'
+import { cacheTag } from 'next/cache'
 
 // Current user
-export const getCurrentUser = async () => {
+export const getCurrentUser = cache(async () => {
+  console.log('getting user')
   const session = await getSession()
   if (!session) return null
 
@@ -21,7 +23,7 @@ export const getCurrentUser = async () => {
     console.error('Error getting user by ID:', error)
     return null
   }
-}
+})
 
 // Get user by email
 export const getUserByEmail = async (email: string) => {
@@ -36,6 +38,8 @@ export const getUserByEmail = async (email: string) => {
 
 // Get issues with user
 export async function getIssues() {
+  'use cache'
+  cacheTag('issues')
   try {
     const result = await db.query.issues.findMany({
       with: {
